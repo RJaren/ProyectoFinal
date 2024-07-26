@@ -5,41 +5,31 @@
 
 <div style="text-align: center;">
 
-<span style="color: red;">Carrera: </span>
+  <span style="color: red;">Carrera: </span>
+  <br>
+  Computación
+  <br><br>
+
+  <span style="color: red;">Materia: </span>
+  <br>
+  Estructura de Datos
+  <br><br>
+
+  <span style="color: red;">Nombres: </span>
+  <br><br>
+
+  José Vanegas:<br>
+  jvanegasp1@est.ups.edu.ec
+  <br><br>
+
+  Miguel Vanegas:<br>
+  mvanegasp@est.ups.edu.ec
+  <br><br>
+
+  Ricardo Romero:<br>
+  rromeroc5@est.ups.edu.ec
+
 </div>
-
-<div style="text-align: center;">
- Computación
- </div>
-
-<div style="text-align: center;">
-<span style="color: red;">Materia: </span>
-</div> 
-
-<div style="text-align: center;">
-Estructura de Datos
-</div>
-
-<div style="text-align: center;">
-<span style="color: red;">Nombres: </span> 
-</div>
-
-<div style="text-align: center;">
-José Vanegas:
-		jvanegasp1@est.ups.edu.ec,
-		</div>
-
-<div style="text-align: center;">
-Miguel Vanegas:  
-mvanegasp@est.ups.edu.ec
-		</div>
-		
-<div style="text-align: center;">
-Ricardo Romero:
-rromeroc5@est.ups.edu.ec
-		</div>
-
-
 
 
 
