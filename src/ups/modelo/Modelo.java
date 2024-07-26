@@ -3,6 +3,8 @@ package ups.modelo;
 import ups.vista.Celda;
 import ups.vista.Vista;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -13,17 +15,20 @@ import java.util.Stack;
 
 public class Modelo {
     private Vista vista;
+    private Map<String, String> cache;
 
     public Modelo(Vista vista) {
         this.vista = vista;
+        this.cache = new HashMap<>();
     }
-    public String bfs(int startX, int startY) {
+
+    public void bfs(int startX, int startY) {
         int filas = vista.getCeldas().length;
         int columnas = vista.getCeldas()[0].length;
         boolean[][] visitado = new boolean[filas][columnas];
         Queue<int[]> queue = new LinkedList<>();
         List<String> posiciones = new ArrayList<>();
-        Map<String, String> predecesores = new HashMap<>(); 
+        Map<String, String> predecesores = new HashMap<>();
 
         queue.add(new int[]{startX, startY});
         predecesores.put(startX + "," + startY, null);
@@ -40,13 +45,14 @@ public class Modelo {
             if (x == vista.getFinX() && y == vista.getFinY()) {
                 long endTime = System.currentTimeMillis();
                 double duration = (endTime - startTime) / 1000.0;
-                return generarMensaje(posiciones, duration);
+                mostrarMensajeConScroll(posiciones, duration);
+                return;
             }
 
             if (visitado[x][y]) continue;
 
             visitado[x][y] = true;
-            vista.getCeldas()[y][x].setVisitedColor(); 
+            vista.getCeldas()[y][x].setVisitedColor();
             pausar();
 
             for (int[] dir : new int[][]{{0, 1}, {1, 0}, {0, -1}, {-1, 0}}) {
@@ -54,15 +60,17 @@ public class Modelo {
                 int newY = y + dir[1];
                 if (newX >= 0 && newX < filas && newY >= 0 && newY < columnas && !vista.getCeldas()[newY][newX].isBlocked() && !visitado[newX][newY]) {
                     queue.add(new int[]{newX, newY});
-                    predecesores.put(newX + "," + newY, x + "," + y); 
+                    predecesores.put(newX + "," + newY, x + "," + y);
                 }
             }
         }
 
-        return "No se encontró un camino con BFS.";
+        long endTime = System.currentTimeMillis();
+        double duration = (endTime - startTime) / 1000.0;
+        mostrarMensajeConScroll(posiciones, duration);
     }
 
-    public String dfs(int startX, int startY) {
+    public void dfs(int startX, int startY) {
         int filas = vista.getCeldas().length;
         int columnas = vista.getCeldas()[0].length;
         boolean[][] visitado = new boolean[filas][columnas];
@@ -82,7 +90,8 @@ public class Modelo {
             if (x == vista.getFinX() && y == vista.getFinY()) {
                 long endTime = System.currentTimeMillis();
                 double duration = (endTime - startTime) / 1000.0;
-                return generarMensaje(posiciones, duration);
+                mostrarMensajeConScroll(posiciones, duration);
+                return;
             }
 
             if (visitado[x][y]) continue;
@@ -100,90 +109,119 @@ public class Modelo {
             }
         }
 
-        return "No se encontró un camino con DFS.";
+        long endTime = System.currentTimeMillis();
+        double duration = (endTime - startTime) / 1000.0;
+        mostrarMensajeConScroll(posiciones, duration);
     }
 
-    public String cache(int startX, int startY) {
-        int filas = vista.getCeldas().length;
-        int columnas = vista.getCeldas()[0].length;
-        boolean[][] visitado = new boolean[filas][columnas];
-        Queue<int[]> queue = new LinkedList<>();
+    public void cache(int startX, int startY) {
+        cache.clear();
         List<String> posiciones = new ArrayList<>();
-        queue.add(new int[]{startX, startY});
-
         long startTime = System.currentTimeMillis();
-
-        while (!queue.isEmpty()) {
-            int[] current = queue.poll();
-            int x = current[0];
-            int y = current[1];
-
-            if (visitado[x][y]) continue;
-
-            posiciones.add("(" + x + "," + y + ")");
-            visitado[x][y] = true;
-            vista.getCeldas()[x][y].setVisitedColor();
-            pausar();
-
-            if (x == vista.getFinX() && y == vista.getFinY()) {
-                long endTime = System.currentTimeMillis();
-                double duration = (endTime - startTime) / 1000.0;
-                return generarMensaje(posiciones, duration);
+        String result;
+        try {
+            result = recorridoCache(startX, startY, posiciones);
+            if (result.equals("Not Found")) {
+                throw new Exception("No se encontró un camino con el método de caché.");
             }
+        } catch (Exception e) {
+            mostrarMensajeConScroll("Error en la búsqueda con caché: " + e.getMessage());
+            return;
+        }
+        long endTime = System.currentTimeMillis();
+        double duration = (endTime - startTime) / 1000.0;
+        mostrarMensajeConScroll(posiciones, duration);
+    }
 
-            for (int[] dir : new int[][]{{0, 1}, {1, 0}, {0, -1}, {-1, 0}}) {
-                int newX = x + dir[0];
-                int newY = y + dir[1];
-                if (newX >= 0 && newX < filas && newY >= 0 && newY < columnas 
-                        && !vista.getCeldas()[newX][newY].isBlocked() && !visitado[newX][newY]) {
-                    queue.add(new int[]{newX, newY});
-                }
+    private String recorridoCache(int x, int y, List<String> posiciones) throws Exception {
+        String key = x + "," + y;
+
+        if (cache.containsKey(key)) {
+            return cache.get(key);
+        }
+
+        if (x < 0 || x >= vista.getCeldas()[0].length || y < 0 || y >= vista.getCeldas().length) {
+            cache.put(key, "Invalid");
+            return "Invalid";
+        }
+
+        if (vista.getCeldas()[y][x].isBlocked()) {
+            cache.put(key, "Blocked");
+            return "Blocked";
+        }
+
+        if (x == vista.getFinX() && y == vista.getFinY()) {
+            cache.put(key, "Goal Reached");
+            posiciones.add("(" + x + "," + y + ")");
+            return "Goal Reached";
+        }
+
+        cache.put(key, "Visited");
+        posiciones.add("(" + x + "," + y + ")");
+        vista.getCeldas()[y][x].setVisitedColor();
+        pausar();
+
+        String result = "Not Found";
+        for (int[] dir : new int[][]{{0, 1}, {1, 0}, {0, -1}, {-1, 0}}) {
+            int newX = x + dir[0];
+            int newY = y + dir[1];
+            String pathResult = recorridoCache(newX, newY, posiciones);
+            if (pathResult.equals("Goal Reached")) {
+                result = "Goal Reached";
+                break;
             }
         }
 
-        return "No se encontró un camino con Cache.";
+        cache.put(key, result);
+        return result;
     }
 
-
-    public String normal(int startX, int startY) {
-        int filas = vista.getCeldas().length;
-        int columnas = vista.getCeldas()[0].length;
-        boolean[][] visitado = new boolean[filas][columnas];
-        Queue<int[]> queue = new LinkedList<>();
+    public void normal(int startX, int startY) {
         List<String> posiciones = new ArrayList<>();
-        queue.add(new int[]{startX, startY});
-
         long startTime = System.currentTimeMillis();
-
-        while (!queue.isEmpty()) {
-            int[] current = queue.poll();
-            int x = current[0];
-            int y = current[1];
-
-            if (visitado[x][y]) continue;
-
-            posiciones.add("(" + x + "," + y + ")");
-            visitado[x][y] = true;
-            vista.getCeldas()[x][y].setVisitedColor();
-            pausar();
-
-            if (x == vista.getFinX() && y == vista.getFinY()) {
-                long endTime = System.currentTimeMillis();
-                double duration = (endTime - startTime) / 1000.0;
-                return generarMensaje(posiciones, duration);
+        String result;
+        try {
+            result = recorridoNormal(startX, startY, posiciones);
+            if (result.equals("Not Found")) {
+                throw new Exception("No se encontró un camino con el método normal.");
             }
+        } catch (Exception e) {
+            mostrarMensajeConScroll("Error en la búsqueda normal: " + e.getMessage());
+            return;
+        }
+        long endTime = System.currentTimeMillis();
+        double duration = (endTime - startTime) / 1000.0;
+        mostrarMensajeConScroll(posiciones, duration);
+    }
 
-            for (int[] dir : new int[][]{{0, 1}, {1, 0}, {0, -1}, {-1, 0}}) {
-                int newX = x + dir[0];
-                int newY = y + dir[1];
-                if (newX >= 0 && newX < filas && newY >= 0 && newY < columnas 
-                        && !vista.getCeldas()[newX][newY].isBlocked() && !visitado[newX][newY]) {
-                    queue.add(new int[]{newX, newY});
-                }
+    private String recorridoNormal(int x, int y, List<String> posiciones) throws Exception {
+        if (x < 0 || x >= vista.getCeldas()[0].length || y < 0 || y >= vista.getCeldas().length) {
+            return "Invalid";
+        }
+
+        if (vista.getCeldas()[y][x].isBlocked()) {
+            return "Blocked";
+        }
+
+        if (x == vista.getFinX() && y == vista.getFinY()) {
+            posiciones.add("(" + x + "," + y + ")");
+            return "Goal Reached";
+        }
+
+        vista.getCeldas()[y][x].setVisitedColor();
+        pausar();
+        posiciones.add("(" + x + "," + y + ")");
+
+        for (int[] dir : new int[][]{{0, 1}, {1, 0}, {0, -1}, {-1, 0}}) {
+            int newX = x + dir[0];
+            int newY = y + dir[1];
+            String pathResult = recorridoNormal(newX, newY, posiciones);
+            if (pathResult.equals("Goal Reached")) {
+                return "Goal Reached";
             }
         }
 
-        return "No se encontró un camino con Normal.";
+        return "Not Found";
     }
 
     private void pausar() {
@@ -194,14 +232,34 @@ public class Modelo {
         }
     }
 
-    private String generarMensaje(List<String> posiciones, double duration) {
+    private void mostrarMensajeConScroll(List<String> posiciones, double duration) {
         StringBuilder sb = new StringBuilder();
         sb.append("Posiciones recorridas:\n");
         for (String pos : posiciones) {
             sb.append(pos).append("\n");
         }
         sb.append("Tiempo total: ").append(duration).append(" segundos.");
-        return sb.toString();
+
+        JTextArea textArea = new JTextArea();
+        textArea.setText(sb.toString());
+        textArea.setEditable(false);
+        textArea.setCaretPosition(0);
+
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        scrollPane.setPreferredSize(new Dimension(400, 300));
+
+        JOptionPane.showMessageDialog(null, scrollPane, "Resultados del Algoritmo", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private void mostrarMensajeConScroll(String mensaje) {
+        JTextArea textArea = new JTextArea();
+        textArea.setText(mensaje);
+        textArea.setEditable(false);
+        textArea.setCaretPosition(0);
+
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        scrollPane.setPreferredSize(new Dimension(400, 300));
+
+        JOptionPane.showMessageDialog(null, scrollPane, "Resultados del Algoritmo", JOptionPane.INFORMATION_MESSAGE);
     }
 }
-

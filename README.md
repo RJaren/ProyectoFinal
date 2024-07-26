@@ -1,5 +1,6 @@
 # <span style="color: red;">Proyecto Final - Estructura de Datos</span>
-![Caratuta](C:\Users\DELL\Downloads\Caratura.png.jpeg)
+![Caratula](https://drive.google.com/uc?id=1vktiEFvA6a9KMZhUFFxx8SAPHqPdbCZl)
+
 
 <div style="text-align: center;">
 

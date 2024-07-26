@@ -51,8 +51,7 @@ public class Controlador implements ActionListener {
         }
 
         bfsThread = new Thread(() -> {
-            String resultado = modelo.bfs(vista.getInicioX(), vista.getInicioY());
-            vista.mostrarMensaje(resultado);
+            modelo.bfs(vista.getInicioX(), vista.getInicioY());
         });
 
         bfsThread.start();
@@ -65,8 +64,7 @@ public class Controlador implements ActionListener {
         }
 
         dfsThread = new Thread(() -> {
-            String resultado = modelo.dfs(vista.getInicioX(), vista.getInicioY());
-            vista.mostrarMensaje(resultado);
+            modelo.dfs(vista.getInicioX(), vista.getInicioY());
         });
 
         dfsThread.start();
@@ -79,8 +77,7 @@ public class Controlador implements ActionListener {
         }
 
         cacheThread = new Thread(() -> {
-            String resultado = modelo.cache(vista.getInicioX(), vista.getInicioY());
-            vista.mostrarMensaje(resultado);
+            modelo.cache(vista.getInicioX(), vista.getInicioY());
         });
 
         cacheThread.start();
@@ -93,8 +90,7 @@ public class Controlador implements ActionListener {
         }
 
         normalThread = new Thread(() -> {
-            String resultado = modelo.normal(vista.getInicioX(), vista.getInicioY());
-            vista.mostrarMensaje(resultado);
+            modelo.normal(vista.getInicioX(), vista.getInicioY());
         });
 
         normalThread.start();
