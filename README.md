@@ -1,132 +1,100 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Proyecto Final - Estructura de Datos</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-        }
-        .center {
-            text-align: center;
-        }
-        .red {
-            color: red;
-        }
-        img {
-            max-width: 100%;
-        }
-    </style>
-</head>
-<body>
 
-<h1 class="red center">Proyecto Final - Estructura de Datos</h1>
-<div class="center">
-    <img src="https://drive.google.com/uc?id=1vktiEFvA6a9KMZhUFFxx8SAPHqPdbCZl" alt="Descripción del logo">
+#<span style="color: red;">Proyecto Final - Estructura de Datos</span>
+\begin{center}
+Proyecto Final - Estructura de Datos
+\end{center}
+
+![Logo Ups](https://drive.google.com/uc?id=1vktiEFvA6a9KMZhUFFxx8SAPHqPdbCZl)
+
+
+
+<div style="text-align: center;">
+
+ Carrera: 
+  Computación
+  <br><br>
+
+  Materia:
+  <br>
+  Estructura de Datos
+  <br><br>
+
+  <span style="color: red;">Nombres: </span>
+  <br><br>
+
+  José Vanegas:<br>
+  jvanegasp1@est.ups.edu.ec
+  <br><br>
+
+  Miguel Vanegas:<br>
+  mvanegasp@est.ups.edu.ec
+  <br><br>
+
+  Ricardo Romero:<br>
+  rromeroc5@est.ups.edu.ec
+
 </div>
 
-<div class="center">
-    <p class="red">Carrera:</p>
-    <p>Computación</p>
 
-    <p class="red">Materia:</p>
-    <p>Estructura de Datos</p>
 
-    <p class="red">Nombres:</p>
-    <p>José Vanegas:<br>jvanegasp1@est.ups.edu.ec</p>
-    <p>Miguel Vanegas:<br>mvanegasp@est.ups.edu.ec</p>
-    <p>Ricardo Romero:<br>rromeroc5@est.ups.edu.ec</p>
-</div>
+# <span style="color: red;">Descripción del problema</span>
 
-<h2 class="red">Descripción del problema</h2>
-<p>
-    El problema consiste en el desarrollo de una aplicación en Java, implementando todo lo aprendido, incluyendo el patrón MVC (Modelo, Vista, Controlador), los métodos de búsqueda, la creación de obstáculos para visualizar los métodos de búsqueda que van desde el inicio al fin, y la implementación de los tiempos de cada método.
-</p>
+El problema consisto en el desarrollo de la aplicación en java, implementar todo lo aprendido, implementar el mvc (Modelo,Vista, Controlador), implementación de los métodos de búsqueda, en la creación de obstáculos para poder visualizar los métodos de búsqueda que va desde el inicio al fin  y la implementación de los tiempos de cada método.
 
-<h2 class="red">Propuesta de solución</h2>
+Propuesta de solución
+##Marco Teórico: 
+*Dinámica:
+La programación dinámica es un método para resolver problemas de programación matemática que puedan dividirse en subproblemas relacionados entre sí de forma que, resolviéndolos, podemos hallar una solución óptima para el problema original.
+*BFS y  DFS: 
+El algoritmo BFS (Breadth-First Search o Búsqueda en Amplitud) es otro algoritmo de búsqueda utilizado en grafos. A diferencia de DFS, que explora tan lejos como sea posible a lo largo de cada rama antes de retroceder, BFS explora los nodos vecinos del nodo actual antes de pasar a los nodos que están más lejos.
 
-<h3>Marco Teórico:</h3>
-<ul>
-    <li>
-        <strong>Dinámica:</strong> La programación dinámica es un método para resolver problemas de programación matemática que pueden dividirse en subproblemas relacionados entre sí, de forma que, resolviéndolos, podemos hallar una solución óptima para el problema original.
-    </li>
-    <li>
-        <strong>BFS y DFS:</strong> El algoritmo BFS (Breadth-First Search o Búsqueda en Amplitud) explora los nodos vecinos del nodo actual antes de pasar a los nodos que están más lejos. A diferencia de DFS, que explora tan lejos como sea posible a lo largo de cada rama antes de retroceder.
-    </li>
-</ul>
+##Descripción de la propuesta de solución, herramientas y/o lenguajes que usuraron:
 
-<h3>Descripción de la propuesta de solución, herramientas y/o lenguajes utilizados:</h3>
-<p>
-    Dividimos el código en componentes más pequeños y específicos. Cada componente (Modelo, Vista, Controlador) tiene responsabilidades claramente definidas. Los métodos largos y repetitivos se dividen en métodos auxiliares para mejorar la legibilidad y mantenibilidad. Utilizamos el lenguaje Java con el IDE Eclipse. Las herramientas que usamos son:
-</p>
+Dividir el código en componentes más pequeños y específicos. Cada componente (Modelo, Vista, Controlador) debe tener responsabilidades claramente definidas. Los métodos largos y repetitivos se deben dividir en métodos auxiliares para mejorar la legibilidad y la mantenibilidad y usamos el lenguaje de java: Eclipse.
+Las Herramientas que usamos son:
 
-<ul>
-    <li>
-        <strong>Swing:</strong> Biblioteca de Java para crear interfaces gráficas de usuario. Utilizada para diseñar la interfaz de la aplicación, con componentes como JFrame, JPanel, JButton, etc.
-    </li>
-    <li>
-        <strong>JOptionPane:</strong> Para mostrar mensajes de diálogo y notificaciones al usuario.
-    </li>
-    <li>
-        <strong>MVC (Modelo-Vista-Controlador):</strong> Para organizar y mejorar la implementación del código, manejando los datos con más eficiencia. 
-    </li>
-</ul>
+*Swing: Biblioteca de Java para crear interfaces gráficas de usuario. Utilizada para diseñar la interfaz de la aplicación, con componentes como JFrame, JPanel, JButton, etc.
 
-<p>
-    En el modelo, tenemos la creación de nuestras celdas y el recorrido de cada método de búsqueda. En la vista, implementamos los métodos para crear los botones, los paneles donde interactúa el usuario, y las celdas. En el controlador, tenemos atributos de vista y modelo que hacen funcionar los botones con eventos, la creación de celdas y el recorrido de los métodos, y un botón de resetear que borra todas las celdas.
-</p>
+*JOptionPane: Para mostrar mensajes de diálogo y notificaciones al usuario.
 
-<h2 class="red">Criterio por integrante de su propuesta</h2>
+*Propisimos crear un mvc (Modelo-Vista-Cotrolador) para poder organizar y con eso tenemos una mejor implementación de nuestro codigo y para manejar los datos con mas eficiencia, en la parte del modelo tenemos dos ,la creacion de nuestars celda y el otro como va recorrer cada metodo de busqueda , en la parte de la vista implementamos en la vista lo que seria metodos de crear los botones los paneles donde va a interactura el usuario y  que te hacer las cedas , en el controlador 
+que tendremos unos atributos de vista y modelo que va a hacer funcionas los botones con events y la creación de celdas y recorrido de los método y en la parte extra esta para limpiar el recorrido y el botón resetear que hará borrar todo la celda.
 
-<p>
-    <strong>Ricardo:</strong> Modularizar la lógica, separando las responsabilidades de la interfaz de usuario y los algoritmos de búsqueda en diferentes clases. Además, implementar patrones de diseño como MVC (Modelo-Vista-Controlador).
-</p>
-<p>
-    <strong>José:</strong> La interfaz de usuario para que sea más intuitiva y agregar pruebas unitarias para garantizar una experiencia más robusta y amigable.
-</p>
-<p>
-    <strong>Miguel:</strong> En la parte de los botones de inicio y fin, fue una buena idea porque en programación al ingresar los datos inician desde 0, lo cual puede ser problemático para los usuarios. Propuso usar un JTextArea para mostrar las posiciones y el tiempo que tarda en recorrer cada método, ya que se vería mejor que un cuadro de diálogo.
-</p>
 
-<h2 class="red">Capturas de la implementación final de la UI</h2>
+#<span style="color: red;">Criterio por integrante de su propuesta </span>
 
-<p>Normal:</p>
-<div class="center">
-    <img src="https://i.imgur.com/vqqCOhL.jpg" alt="Normal">
-</div>
+Ricardo: Modularizar la lógica, separando las responsabilidades de la interfaz de usuario y los algoritmos de búsqueda en diferentes clases. Además, implementar patrones de diseño como MVC (Modelo-Vista-Controlador).
 
-<p>Extra:</p>
-<div class="center">
-    <img src="https://i.imgur.com/7a4Nr5I.png" alt="Extra">
-</div>
+José: La interfaz de usuario para que sea más intuitiva y agregar pruebas unitarias garantizarán una experiencia más robusta y amigable.es la funcionabilidad de la interfaz.
 
-<h2 class="red">Conclusiones</h2>
-<p>
-    Para nuestras conclusiones, hicimos 4 o 5 pruebas con tiempos de cada método, donde el método BFS aproximadamente demoró 2.284 segundos, DFS demoró 1.313 segundos, cache demoró 2.394 segundos, y sin cache demoró 2.391 segundos. Sabemos que:
-</p>
+Miguel: En la parte de los botones de inicio y fin para mi me fue una buena idea por que como en programacion al ingersear los datos inican desde 0, por lo cual la gente no lo toma encuenta y estaria con problemas al usar nuestro aplicacion. Yo tenia pensando usar un JTextArea para mostrar las posiciones y el tiemp que tarda al recorrer cada metodo ya que se veria mejor que un cuadro de dialogo ya que simepre tengo la idea que mas se usa para errores que para que salidad de informacion.
 
-<ul>
-    <li>BFS es generalmente el más efectivo para encontrar el camino más corto en un espacio de búsqueda sin ponderaciones y con un número razonable de nodos.</li>
-    <li>DFS puede ser más rápido en encontrar una solución en espacios de búsqueda profundos, pero no garantiza el camino más corto.</li>
-    <li>Los métodos dinámicos son más efectivos en espacios de búsqueda con muchas subestructuras repetitivas y cuando se requiere optimización en términos de tiempo de computación y costo del camino.</li>
-</ul>
+##<span style="color: red;">Capturas de la implementación final de la UI </span>
 
-<p>
-    Por lo tanto, DFS es el mejor método ya que es el más efectivo para encontrar el camino en profundidad.
-</p>
+- Normal:
+![Normal](https://i.imgur.com/vqqCOhL.jpg)
 
-<h2 class="red">Consideraciones</h2>
+- Extra:
 
-<p>
-    <strong>Ricardo:</strong> Añadir comentarios y documentación para explicar la lógica del código puede ayudar a otros desarrolladores a entender lo que hace cada parte del código, e intentar separar la lógica de la visualización de los métodos para que cada uno tenga su propia lógica.
-</p>
-<p>
-    <strong>Miguel:</strong> La interfaz gráfica debería ser intuitiva, responsiva y proporcionar una buena experiencia al usuario. Esto incluye la claridad de los botones, la retroalimentación visual y la facilidad de uso. Realizar pruebas de usabilidad con usuarios reales o simulados para identificar posibles mejoras en la interfaz y la interacción.
-</p>
-<p>
-    <strong>José:</strong> La facilidad con la que el código puede ser modificado o extendido sin introducir errores. Esto incluye la claridad de los comentarios y la documentación. Revisar si el código está bien documentado y si las modificaciones futuras requieren cambios en varias partes del código o solo en áreas específicas.
-</p>
+![Extra](https://i.imgur.com/7a4Nr5I.png)
 
-</body>
-</html>
+
+#<span style="color: red;">Conclusiones:</span>
+
+Para nuestras conclusiones para ver cual es mejor metodod de buqueda hicimos unos 4 o 5 pruebas con tiempo de cada metodo donde el metodo BFS apreximadamente demoro 2.284 segundos , DFS demoro 1,313 segundos , cache demoro 2.394 segundos y sin cache demoro 2.391 segundos donde sabemos que:
+
+BFS es generalmente el más efectivo para encontrar el camino más corto en un espacio de búsqueda sin ponderaciones y con un número razonable de nodos.
+
+DFS puede ser más rápido en encontrar una solución en espacios de búsqueda profundos, pero no garantiza el camino más corto.
+Pero el método dinámica son más efectivos en espacios de búsqueda con muchas subestructuras repetitivas y cuando se requiere optimización en términos de tiempo de computación y costo del camino.
+
+Por lo tanto el DFS es el mejor por que  es el mas efectivo para encontrar el camino en profundidad.
+
+#<span style="color: red;">Consideraciones:</span>
+
+- Ricardo: Añadir comentarios y documentación para explicar la lógica del código puede ayudar a otros desarrolladores a entender lo que hace cada parte del código e intentar separar la logica con la visualización de los metodos para que cada uno tenga su lógica.
+
+- Miguel: La interfaz gráfica debería ser intuitiva, responsiva y proporcionar una buena experiencia al usuario. Esto incluye la claridad de los botones, la retroalimentación visual y la facilidad de uso. Con la cual se realizara con pruebas e usabilidad con usuarios reales o simulados para identificar posibles mejoras en la interfaz y la interacción.
+
+- José: La facilidad con la que el código puede ser modificado o extendido sin introducir errores. Esto incluye la claridad de los comentarios y la documentación se hace realizando revisar si el código está bien documentado y si las modificaciones futuras requieren cambios en varias partes del código o solo en áreas específicas.
+
