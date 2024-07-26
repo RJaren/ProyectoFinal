@@ -46,12 +46,12 @@ public class Vista extends JFrame {
 
         add(panel, BorderLayout.NORTH);
 
-        Panel panel2 = new Panel(new GridLayout(4, 2)); // Cambiado de 3 a 4 para acomodar el nuevo botón
+        Panel panel2 = new Panel(new GridLayout(4, 2)); 
         panel2.add(btnStartBFS);
         panel2.add(btnStartDFS);
         panel2.add(btnStarCache);
         panel2.add(btnNormal);
-        panel2.add(btnLimpiarRecorrido); // Añadir botón "Limpiar Recorrido"
+        panel2.add(btnLimpiarRecorrido);
 
         add(panel2, BorderLayout.WEST);
 
@@ -68,7 +68,7 @@ public class Vista extends JFrame {
         btnStarCache.addActionListener(controlador);
         btnSetInicio.addActionListener(controlador);
         btnSetFin.addActionListener(controlador);
-        btnLimpiarRecorrido.addActionListener(controlador); // Añadir acción al botón
+        btnLimpiarRecorrido.addActionListener(controlador); 
     }
 
     public String getColumnas() {
@@ -82,11 +82,11 @@ public class Vista extends JFrame {
     public void setInicio(int x, int y) {
         if (settingInicio) {
             if (inicioX != -1 && inicioY != -1) {
-                celdas[inicioY][inicioX].setStart(false); // Usar el método setStart
+                celdas[inicioY][inicioX].setStart(false); 
             }
             inicioX = x;
             inicioY = y;
-            celdas[y][x].setStart(true); // Usar el método setStart
+            celdas[y][x].setStart(true); 
             settingInicio = false;
         }
     }
@@ -94,11 +94,11 @@ public class Vista extends JFrame {
     public void setFin(int x, int y) {
         if (settingFin) {
             if (finX != -1 && finY != -1) {
-                celdas[finY][finX].setEnd(false); // Usar el método setEnd
+                celdas[finY][finX].setEnd(false);
             }
             finX = x;
             finY = y;
-            celdas[y][x].setEnd(true); // Usar el método setEnd
+            celdas[y][x].setEnd(true);
             settingFin = false;
         }
     }
