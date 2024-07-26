@@ -68,12 +68,11 @@ Miguel: En la parte de los botones de inicio y fin para mi me fue una buena idea
 #<span style="color: red;">Capturas de la implementación final de la UI </span>
 
 Normal:
-
-![Normal](C:\Users/DELL\Downloads\Norma.png.jpeg)
+![Normal](https://i.imgur.com/vqqCOhL.jpg)
 
 Extra:
 
-![Extra](C:\Users\DELL\Downloads\extra.png.jpeg)
+![Extra](https://i.imgur.com/7a4Nr5I.png)
 
 
 #<span style="color: red;">Conclusiones:</span>
@@ -89,7 +88,7 @@ por lo tanto el DFS es el mejor por que  es el mas efectivo para encontrar el ca
 
 #<span style="color: red;">Consideraciones:</span>
 
-Ricardo: Modularizar la lógica, separando las responsabilidades de la interfaz de usuario y los algoritmos de búsqueda en diferentes clases. Además, implementar patrones de diseño como MVC (Modelo-Vista-Controlador). Finalmente, rediseñar la interfaz de usuario para que sea más intuitiva y agregar pruebas unitarias garantizarán una experiencia más robusta y amigable.
+Ricardo: Añadir comentarios y documentación para explicar la lógica del código puede ayudar a otros desarrolladores a entender lo que hace cada parte del código e intentar separar la logica con la visualización de los metodos para que cada uno tenga su lógica .
 
 Miguel: La interfaz gráfica debería ser intuitiva, responsiva y proporcionar una buena experiencia al usuario. Esto incluye la claridad de los botones, la retroalimentación visual y la facilidad de uso. Con la cual se realizara con pruebas e usabilidad con usuarios reales o simulados para identificar posibles mejoras en la interfaz y la interacción.
 
