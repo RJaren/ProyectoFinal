@@ -1,5 +1,6 @@
 # <span style="color: red;">Proyecto Final - Estructura de Datos</span>
-![Caratula](https://drive.google.com/file/d/1vktiEFvA6a9KMZhUFFxx8SAPHqPdbCZl/view?usp=sharing)
+![Descripción del logo](https://drive.google.com/uc?id=1vktiEFvA6a9KMZhUFFxx8SAPHqPdbCZl)
+
 
 
 <div style="text-align: center;">
