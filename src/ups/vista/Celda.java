@@ -8,6 +8,8 @@ import javax.swing.BorderFactory;
 
 public class Celda extends JPanel {
     private boolean blocked = false;
+    private boolean isStart = false;
+    private boolean isEnd = false;
     private Color color = Color.GRAY;
     private Color startColor = Color.GREEN;
     private Color endColor = Color.RED;
@@ -25,9 +27,9 @@ public class Celda extends JPanel {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (vista.settingInicio) {
+                if (vista.isSettingInicio()) {
                     vista.setInicio(x, y);
-                } else if (vista.settingFin) {
+                } else if (vista.isSettingFin()) {
                     vista.setFin(x, y);
                 } else {
                     if (blocked) {
@@ -41,11 +43,13 @@ public class Celda extends JPanel {
     }
 
     public void setStartColor() {
+        isStart = true;
         setBackground(startColor);
         repaint();
     }
 
     public void setEndColor() {
+        isEnd = true;
         setBackground(endColor);
         repaint();
     }
@@ -61,7 +65,13 @@ public class Celda extends JPanel {
     }
 
     public void resetColor() {
-        setBackground(color);
+        if (isStart) {
+            setBackground(startColor);
+        } else if (isEnd) {
+            setBackground(endColor);
+        } else {
+            setBackground(color);
+        }
         repaint();
     }
 
@@ -78,5 +88,31 @@ public class Celda extends JPanel {
 
     public boolean isBlocked() {
         return blocked;
+    }
+
+    public boolean isStart() {
+        return isStart;
+    }
+
+    public void setStart(boolean isStart) {
+        this.isStart = isStart;
+        if (isStart) {
+            setStartColor();
+        } else {
+            resetColor();
+        }
+    }
+
+    public boolean isEnd() {
+        return isEnd;
+    }
+
+    public void setEnd(boolean isEnd) {
+        this.isEnd = isEnd;
+        if (isEnd) {
+            setEndColor();
+        } else {
+            resetColor();
+        }
     }
 }

@@ -39,6 +39,8 @@ public class Controlador implements ActionListener {
             vista.settingInicio = true;
         } else if (command.equals("Establecer Fin")) {
             vista.settingFin = true;
+        } else if (command.equals("Limpiar Recorrido")) {
+            limpiarRecorrido();
         }
     }
 
@@ -98,22 +100,15 @@ public class Controlador implements ActionListener {
         normalThread.start();
     }
 
+    private void limpiarRecorrido() {
+        vista.limpiarRecorrido();
+    }
+
     private void resetear() {
-        if (bfsThread != null && bfsThread.isAlive()) {
-            bfsThread.interrupt();
-        }
-
-        if (dfsThread != null && dfsThread.isAlive()) {
-            dfsThread.interrupt();
-        }
-
-        if (cacheThread != null && cacheThread.isAlive()) {
-            cacheThread.interrupt();
-        }
-
-        if (normalThread != null && normalThread.isAlive()) {
-            normalThread.interrupt();
-        }
+        if (bfsThread != null && bfsThread.isAlive()) bfsThread.interrupt();
+        if (dfsThread != null && dfsThread.isAlive()) dfsThread.interrupt();
+        if (cacheThread != null && cacheThread.isAlive()) cacheThread.interrupt();
+        if (normalThread != null && normalThread.isAlive()) normalThread.interrupt();
 
         vista.resetCelda();
     }

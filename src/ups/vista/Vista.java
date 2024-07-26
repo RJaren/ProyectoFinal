@@ -9,7 +9,7 @@ import ups.control.Controlador;
 public class Vista extends JFrame {
 
     private TextField txtColum, txtFil;
-    private Button btnCrear, btnStartBFS, btnStartDFS, btnStarCache, btnNormal, btnReset, btnSetInicio, btnSetFin;
+    private Button btnCrear, btnStartBFS, btnStartDFS, btnStarCache, btnNormal, btnReset, btnSetInicio, btnSetFin, btnLimpiarRecorrido;
     private JPanel gridPanel;
     private Celda[][] celdas;
     private int filas, columnas;
@@ -28,6 +28,7 @@ public class Vista extends JFrame {
         btnStarCache = new Button("Iniciar con Cache");
         btnNormal = new Button("Iniciar con Normal");
         btnReset = new Button("Resetear");
+        btnLimpiarRecorrido = new Button("Limpiar Recorrido");
         txtColum = new TextField();
         txtFil = new TextField();
         btnSetInicio = new Button("Establecer Inicio");
@@ -45,11 +46,12 @@ public class Vista extends JFrame {
 
         add(panel, BorderLayout.NORTH);
 
-        Panel panel2 = new Panel(new GridLayout(3, 2));
+        Panel panel2 = new Panel(new GridLayout(4, 2)); // Cambiado de 3 a 4 para acomodar el nuevo botón
         panel2.add(btnStartBFS);
         panel2.add(btnStartDFS);
         panel2.add(btnStarCache);
         panel2.add(btnNormal);
+        panel2.add(btnLimpiarRecorrido); // Añadir botón "Limpiar Recorrido"
 
         add(panel2, BorderLayout.WEST);
 
@@ -66,6 +68,7 @@ public class Vista extends JFrame {
         btnStarCache.addActionListener(controlador);
         btnSetInicio.addActionListener(controlador);
         btnSetFin.addActionListener(controlador);
+        btnLimpiarRecorrido.addActionListener(controlador); // Añadir acción al botón
     }
 
     public String getColumnas() {
@@ -79,11 +82,11 @@ public class Vista extends JFrame {
     public void setInicio(int x, int y) {
         if (settingInicio) {
             if (inicioX != -1 && inicioY != -1) {
-                celdas[inicioY][inicioX].resetColor();
+                celdas[inicioY][inicioX].setStart(false); // Usar el método setStart
             }
             inicioX = x;
             inicioY = y;
-            celdas[y][x].setStartColor();
+            celdas[y][x].setStart(true); // Usar el método setStart
             settingInicio = false;
         }
     }
@@ -91,11 +94,11 @@ public class Vista extends JFrame {
     public void setFin(int x, int y) {
         if (settingFin) {
             if (finX != -1 && finY != -1) {
-                celdas[finY][finX].resetColor();
+                celdas[finY][finX].setEnd(false); // Usar el método setEnd
             }
             finX = x;
             finY = y;
-            celdas[y][x].setEndColor();
+            celdas[y][x].setEnd(true); // Usar el método setEnd
             settingFin = false;
         }
     }
@@ -124,6 +127,16 @@ public class Vista extends JFrame {
         gridPanel.revalidate();
         gridPanel.repaint();
         inicioX = inicioY = finX = finY = -1;
+    }
+
+    public void limpiarRecorrido() {
+        for (int i = 0; i < filas; i++) {
+            for (int j = 0; j < columnas; j++) {
+                if (!celdas[i][j].isBlocked() && !celdas[i][j].isStart() && !celdas[i][j].isEnd()) {
+                    celdas[i][j].resetColor();
+                }
+            }
+        }
     }
 
     public void mostrarMensaje(String mensaje) {
@@ -160,5 +173,21 @@ public class Vista extends JFrame {
 
     public JPanel getGridPanel() {
         return gridPanel;
+    }
+
+    public boolean isSettingInicio() {
+        return settingInicio;
+    }
+
+    public void setSettingInicio(boolean settingInicio) {
+        this.settingInicio = settingInicio;
+    }
+
+    public boolean isSettingFin() {
+        return settingFin;
+    }
+
+    public void setSettingFin(boolean settingFin) {
+        this.settingFin = settingFin;
     }
 }

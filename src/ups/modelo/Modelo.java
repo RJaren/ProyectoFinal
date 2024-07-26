@@ -4,8 +4,10 @@ import ups.vista.Celda;
 import ups.vista.Vista;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 import java.util.Stack;
 
@@ -15,14 +17,16 @@ public class Modelo {
     public Modelo(Vista vista) {
         this.vista = vista;
     }
-
     public String bfs(int startX, int startY) {
         int filas = vista.getCeldas().length;
         int columnas = vista.getCeldas()[0].length;
         boolean[][] visitado = new boolean[filas][columnas];
         Queue<int[]> queue = new LinkedList<>();
         List<String> posiciones = new ArrayList<>();
+        Map<String, String> predecesores = new HashMap<>(); 
+
         queue.add(new int[]{startX, startY});
+        predecesores.put(startX + "," + startY, null);
 
         long startTime = System.currentTimeMillis();
 
@@ -42,7 +46,7 @@ public class Modelo {
             if (visitado[x][y]) continue;
 
             visitado[x][y] = true;
-            vista.getCeldas()[y][x].setVisitedColor();
+            vista.getCeldas()[y][x].setVisitedColor(); 
             pausar();
 
             for (int[] dir : new int[][]{{0, 1}, {1, 0}, {0, -1}, {-1, 0}}) {
@@ -50,6 +54,7 @@ public class Modelo {
                 int newY = y + dir[1];
                 if (newX >= 0 && newX < filas && newY >= 0 && newY < columnas && !vista.getCeldas()[newY][newX].isBlocked() && !visitado[newX][newY]) {
                     queue.add(new int[]{newX, newY});
+                    predecesores.put(newX + "," + newY, x + "," + y); 
                 }
             }
         }
@@ -113,7 +118,12 @@ public class Modelo {
             int x = current[0];
             int y = current[1];
 
+            if (visitado[x][y]) continue;
+
             posiciones.add("(" + x + "," + y + ")");
+            visitado[x][y] = true;
+            vista.getCeldas()[x][y].setVisitedColor();
+            pausar();
 
             if (x == vista.getFinX() && y == vista.getFinY()) {
                 long endTime = System.currentTimeMillis();
@@ -121,16 +131,11 @@ public class Modelo {
                 return generarMensaje(posiciones, duration);
             }
 
-            if (visitado[x][y]) continue;
-
-            visitado[x][y] = true;
-            vista.getCeldas()[y][x].setVisitedColor();
-            pausar();
-
             for (int[] dir : new int[][]{{0, 1}, {1, 0}, {0, -1}, {-1, 0}}) {
                 int newX = x + dir[0];
                 int newY = y + dir[1];
-                if (newX >= 0 && newX < filas && newY >= 0 && newY < columnas && !vista.getCeldas()[newY][newX].isBlocked() && !visitado[newX][newY]) {
+                if (newX >= 0 && newX < filas && newY >= 0 && newY < columnas 
+                        && !vista.getCeldas()[newX][newY].isBlocked() && !visitado[newX][newY]) {
                     queue.add(new int[]{newX, newY});
                 }
             }
@@ -138,6 +143,7 @@ public class Modelo {
 
         return "No se encontró un camino con Cache.";
     }
+
 
     public String normal(int startX, int startY) {
         int filas = vista.getCeldas().length;
@@ -154,7 +160,12 @@ public class Modelo {
             int x = current[0];
             int y = current[1];
 
+            if (visitado[x][y]) continue;
+
             posiciones.add("(" + x + "," + y + ")");
+            visitado[x][y] = true;
+            vista.getCeldas()[x][y].setVisitedColor();
+            pausar();
 
             if (x == vista.getFinX() && y == vista.getFinY()) {
                 long endTime = System.currentTimeMillis();
@@ -162,16 +173,11 @@ public class Modelo {
                 return generarMensaje(posiciones, duration);
             }
 
-            if (visitado[x][y]) continue;
-
-            visitado[x][y] = true;
-            vista.getCeldas()[y][x].setVisitedColor();
-            pausar();
-
             for (int[] dir : new int[][]{{0, 1}, {1, 0}, {0, -1}, {-1, 0}}) {
                 int newX = x + dir[0];
                 int newY = y + dir[1];
-                if (newX >= 0 && newX < filas && newY >= 0 && newY < columnas && !vista.getCeldas()[newY][newX].isBlocked() && !visitado[newX][newY]) {
+                if (newX >= 0 && newX < filas && newY >= 0 && newY < columnas 
+                        && !vista.getCeldas()[newX][newY].isBlocked() && !visitado[newX][newY]) {
                     queue.add(new int[]{newX, newY});
                 }
             }
@@ -198,3 +204,4 @@ public class Modelo {
         return sb.toString();
     }
 }
+
