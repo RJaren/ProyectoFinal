@@ -22,9 +22,18 @@ public class Controlador implements ActionListener {
         String command = e.getActionCommand();
 
         if (command.equals("Crear")) {
-            int filas = Integer.parseInt(vista.getFilas());
-            int columnas = Integer.parseInt(vista.getColumnas());
-            vista.crearCelda(filas, columnas);
+            try {
+                int filas = Integer.parseInt(vista.getFilas());
+                int columnas = Integer.parseInt(vista.getColumnas());
+                if (filas <= 0 || columnas <= 0) {
+                    vista.mostrarMensaje("Las filas y columnas deben ser mayores a cero.");
+                    return;
+                }
+                vista.crearCelda(filas, columnas);
+                modelo.setCeldas(vista.getCeldas()); 
+            } catch (NumberFormatException ex) {
+                vista.mostrarMensaje("Por favor, ingrese números válidos para filas y columnas.");
+            }
         } else if (command.equals("Resetear")) {
             resetear();
         } else if (command.equals("Iniciar con BFS")) {
@@ -36,9 +45,17 @@ public class Controlador implements ActionListener {
         } else if (command.equals("Iniciar con Normal")) {
             iniciarNormal();
         } else if (command.equals("Establecer Inicio")) {
-            vista.settingInicio = true;
+            if (!vista.isCeldasCreated()) {
+                vista.mostrarMensaje("Primero debe crear el laberinto.");
+                return;
+            }
+            vista.setSettingInicio(true);
         } else if (command.equals("Establecer Fin")) {
-            vista.settingFin = true;
+            if (!vista.isCeldasCreated()) {
+                vista.mostrarMensaje("Primero debe crear el laberinto.");
+                return;
+            }
+            vista.setSettingFin(true);
         } else if (command.equals("Limpiar Recorrido")) {
             limpiarRecorrido();
         }
@@ -109,3 +126,4 @@ public class Controlador implements ActionListener {
         vista.resetCelda();
     }
 }
+

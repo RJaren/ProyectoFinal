@@ -14,7 +14,7 @@ public class Celda extends JPanel {
     private Color startColor = Color.GREEN;
     private Color endColor = Color.RED;
     private Color visitedColor = Color.BLUE;
-    private Color discardedColor = Color.ORANGE;
+    private Color discardedColor = Color.RED;
     private int x, y;
     private Vista vista;
 
@@ -53,7 +53,6 @@ public class Celda extends JPanel {
         setBackground(endColor);
         repaint();
     }
-
     public void setVisitedColor() {
         setBackground(visitedColor);
         repaint();
@@ -115,4 +114,8 @@ public class Celda extends JPanel {
             resetColor();
         }
     }
+    public Color getVisitedColor() {
+        return visitedColor;
+    }
+
 }

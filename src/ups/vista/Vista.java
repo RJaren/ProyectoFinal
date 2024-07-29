@@ -81,6 +81,10 @@ public class Vista extends JFrame {
 
     public void setInicio(int x, int y) {
         if (settingInicio) {
+            if (!isCeldasCreated()) {
+                mostrarMensaje("Primero debe crear el laberinto.");
+                return;
+            }
             if (inicioX != -1 && inicioY != -1) {
                 celdas[inicioY][inicioX].setStart(false); 
             }
@@ -93,6 +97,10 @@ public class Vista extends JFrame {
 
     public void setFin(int x, int y) {
         if (settingFin) {
+            if (!isCeldasCreated()) {
+                mostrarMensaje("Primero debe crear el laberinto.");
+                return;
+            }
             if (finX != -1 && finY != -1) {
                 celdas[finY][finX].setEnd(false);
             }
@@ -130,14 +138,34 @@ public class Vista extends JFrame {
     }
 
     public void limpiarRecorrido() {
+        if (!isCeldasCreated()) {
+            mostrarMensaje("Primero debe crear el laberinto.");
+            return;
+        }
+        if (!isInicioSet() || !isFinSet()) {
+            mostrarMensaje("Debe establecer un punto de inicio y un punto de fin antes de limpiar el recorrido.");
+            return;
+        }
+        
+        boolean recorridoLimpiado = false;
         for (int i = 0; i < filas; i++) {
             for (int j = 0; j < columnas; j++) {
-                if (!celdas[i][j].isBlocked() && !celdas[i][j].isStart() && !celdas[i][j].isEnd()) {
-                    celdas[i][j].resetColor();
+                Celda celda = celdas[i][j];
+                Color backgroundColor = celda.getBackground();
+               
+                if (backgroundColor.equals(celda.getVisitedColor()) || backgroundColor.equals(Color.RED)) {
+                    celda.resetColor();
+                    recorridoLimpiado = true;
                 }
             }
         }
+  
+        if (!recorridoLimpiado) {
+            mostrarMensaje("No hay recorrido que limpiar.");
+        }
     }
+
+
 
     public void mostrarMensaje(String mensaje) {
         JOptionPane.showMessageDialog(this, mensaje);
@@ -189,5 +217,9 @@ public class Vista extends JFrame {
 
     public void setSettingFin(boolean settingFin) {
         this.settingFin = settingFin;
+    }
+    
+    public boolean isCeldasCreated() {
+        return celdas != null;
     }
 }
